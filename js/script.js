@@ -1,3 +1,4 @@
+ /*
 let nombreUsuario= prompt("ingrese su nombre");
 let cursoUsuario= prompt("Que curso esta cursando?");
 let totalRestpuestas=0
@@ -73,3 +74,35 @@ cursoUsuario= cursoUsuario.toUpperCase()
     else{
         alert("DATO ERRONEO. AGUANTE JAVASCRIPT")
     }
+*/
+const muebles[
+    {id=1, nombre= "ARMARIO" ,precio=300000};
+    {id=2, nombre="COCINA", precio=250000};
+    {id=3, nombre="VESTIDOR", precio=350000};
+    {id=4, nombre="BANITORI", precio=150000}
+]
+
+let tipoMueble = prompt("Que tipo de mueble estas buscando? ")
+tipoMueble=tipoMueble.toLowerCase
+let descrip = false
+switch(tipoMueble){
+    case armario:
+        console.log(muebles.precio[0]);
+
+    break;
+    case cocina:
+        console.log(mueble.precio[1]);
+    break;
+    case vestidor:
+        console.log(muebles.percio[2]);
+    break
+    case banitori:
+        console.log(muebles.precio[3]);
+    break;
+    default:
+        descrip=true
+    break;
+}
+
+if (descrip==true){
+}
