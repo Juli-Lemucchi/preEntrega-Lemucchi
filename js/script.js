@@ -1,11 +1,11 @@
- const muebles =[
+ const muebles =[ //Tipos de muebles que suelen hacer
     {id:1 , nombre:"ARMARIO" , precio:300000},
     {id:2 , nombre:"COCINA", precio:250000},
     {id:3 , nombre:"VESTIDOR", precio:350000},
     {id:4 , nombre:"BANITORI", precio:150000},
-    {id:0 , nombre:"OTRO" , precio:0}
+    {id:0 , nombre:"OTRO" , precio:0} //Posible opcion para en un futuro poner un apartado de texto para que se describa el mueble querido
 ]
-const extras =[
+const extras =[ //Posibles opciones para agregar al mueble para mejorar su calidad
     {id:1, nombre:"BORDE DE PVC" , precio:50000},
     {id:2 ,nombre: "BISAGRA CON CIERRE SUAVE" , precio:60000},
     {id:3 ,nombre:"CORREDERA TELESCOPICA REFORZADA" , precio:45000},
@@ -15,7 +15,7 @@ const extras =[
 ]
 
 function listaTipoDeMueble(){
-    let listadoTipoDeMuebles = " ";
+    let listadoTipoDeMuebles = "";
 
     muebles.forEach(typ => {
         listadoTipoDeMuebles += typ.id+" - "+ typ.nombre+ " - $"+typ.precio + "\n";
@@ -23,7 +23,7 @@ function listaTipoDeMueble(){
     return listadoTipoDeMuebles;
 }
 function listaExtras(){
-    let listadoDeExtras =" ";
+    let listadoDeExtras ="";
 
     extras.forEach(extr =>{
         listadoDeExtras +=  extr.id+" - "+ extr.nombre+ " - $"+extr.precio + "\n";
@@ -31,11 +31,9 @@ function listaExtras(){
     return listadoDeExtras;
 }
 
-let descrp = false;
-let totalPrecios=0;
-let manoDeObra=0;
+let descrp = false; // variable para la futura posible descripcion de un mueble
 
-class Voleta {
+class Voleta { 
     constructor (){
         this.muebles = [];
         this.extras =[];
@@ -44,19 +42,16 @@ class Voleta {
 
     elegirMueble(id) {
         let elegido = muebles.find(item => item.id === id);
-
         if(elegido){
             this.muebles.push(elegido);
             console.log("Eligio el tipo de mueble: "+ elegido.nombre);
             totalPrecios = elegido.precio;
         }else{
             descrp= true
-        }   
-        
+        }      
     }
     agregarExtra (id) {
     let extraElegido = extras.find(extr => extr.id === id);
-
     if(extraElegido){
         this.muebles.push(extraElegido);
         console.log("Sumo el extra "+ extraElegido.nombre + " a su pack");
@@ -65,51 +60,49 @@ class Voleta {
        descrp=true
     }
    }
-
-   mostrarVoleta() {
-    this.muebles.forEach(tipo =>{
-        console.log(" ~ "+tipo.nombre + " - $"+ tipo.precio);
+   mostrarVoleta(){
+    let combo = "";
+    this.muebles.forEach(typ => {
+        combo +=typ.nombre+ " - $"+typ.precio + "\n";
     })
-   }
-   
-   totalPrecioMueble(){
+    return combo;
+    }
+    totalPrecioMueble(){
     let total=0;
-
     this.muebles.forEach(tot =>{
         total += tot.precio;
     })
-
     return total;
-   }
-
-   totalPagar(){
+    }
+    totalPagar(){
     let totalFinal =0;
     totalFinal=Math.round(((this.totalPrecioMueble() *2) * this.iva));
     return totalFinal;
    }
 
 }
-/*
-const vole1 = new Voleta();
-console.log("Primer tipo de voleta")
-vole1.elegirMueble(1);
-vole1.agregarExtra(6);
-vole1.agregarExtra(5);
-console.log("Pack completo elegido")
-vole1.mostrarVoleta();
-let precioDelPack = vole1.totalPrecioMueble();
-let totalfinal = vole1.totalPagar();
-console.log("El valor final del mueble seria de $"+ precioDelPack);
-console.log("El total a pagar junto con la mano de Obra y el IVA es $"+ totalfinal);*/
 
+//Interaccion con el usuario
+const vole = new Voleta();
+let tipoDeMueble= 0;
+let extraporagregar=10;
 
-const vole2 = new Voleta();
-let tipoDeMueble= " ";
-let extraporagregar= " ";
-do {
-    tipoDeMueble= parseInt(prompt("Seleccione el numero de mueble que desea \n" + listaTipoDeMueble()));
-} while (tipoDeMueble != 0){
-    vole2.elegirMueble(tipoDeMueble);
+tipoDeMueble= parseInt(prompt("Seleccione el numero de mueble que desea \n" + listaTipoDeMueble()));
+if(tipoDeMueble == 0){
+    decrip=true; 
+    prompt("Comentenos que tipo de mueble desea y proximamente se lo presupuestaremos")
+}else{
+    vole.elegirMueble(tipoDeMueble);}
 
-};
+while(extraporagregar != 0 ){
+    extraporagregar = parseInt(prompt("Desea agregarle a su mueble alguno de nuestros productos premium? \n\n (Si no quiere agregar mas elementos ponga 0) \n\n"+ listaExtras()));
+    vole.agregarExtra(extraporagregar);
+    if(extraporagregar==0){
+        break;
+    }
+}
+let pack = "Detalle de la compra\n\n"+ vole.mostrarVoleta();
+let precioDelPack = "El valor subtotal del mueble seria de $"+ vole.totalPrecioMueble();
+let totalfinal ="El total a pagar junto con la mano de Obra y el IVA es: $" + vole.totalPagar();
+alert(pack + "\n" + precioDelPack+ "\n" + totalfinal);
     
