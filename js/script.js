@@ -1,108 +1,115 @@
- /*
-let nombreUsuario= prompt("ingrese su nombre");
-let cursoUsuario= prompt("Que curso esta cursando?");
-let totalRestpuestas=0
-cursoUsuario= cursoUsuario.toUpperCase()
-
-
-    if(cursoUsuario == "JAVASCRIPT")  {
-        let empiezaEljuego= confirm("Quieres jugar un juego? "+nombreUsuario);
-        while (empiezaEljuego == true){
-            let nPregunta=prompt("Elija un numero entre el 1 y el 4 inclusive");
-            switch(nPregunta){
-            case "1":
-                let respuesta1= prompt("Cual es el tipo de dato de la siguiente expresion. \n let numero = '123' ");
-                    respuesta1=respuesta1.toLocaleUpperCase()
-                    if(respuesta1 == "STRING"){
-                        totalRestpuestas += 1
-                        alert("Very good sumas 1 punto. Vas:" + totalRestpuestas)
-                    }
-                    else{
-                        totalRestpuestas -=1
-                        alert(" Mu mal \n La respuesta correcta era String \n Restas 1 punto Vas:" + totalRestpuestas)
-                    }
-                break;
-            case "2":
-                let respuesta2= prompt("Que signo se usa para declarar el valor de una variable?")
-                    if(respuesta2 == "="){
-                        totalRestpuestas +=1
-                        alert("very good sumas 1 punto. Vas:" + totalRestpuestas)
-                    }
-                    else{
-                        totalRestpuestas -=1
-                        alert(" Mu mal \n La respuesta correcta era = \n Restas 1 punto Vas:" + totalRestpuestas)
-                    }
-                break;
-            case "3":
-                let respuesta3= prompt("Cuantos resultados me va a dar el siguiente ciclo \n for(i=0;i = 4;i++)")
-                respuesta3=respuesta3.toLocaleUpperCase()
-                    if(respuesta3 == "5"){
-                        totalRestpuestas +=1
-                       alert("Very good sumas 1 punto. Vas:" + totalRestpuestas)
-                    }
-                    else{
-                        totalRestpuestas -=1
-                        alert(" Mu mal \n La respuesta correcta era 5 \n Restas 1 punto Vas:" + totalRestpuestas)
-                    }
-                break;
-            case "4":
-                let respuesta4 = prompt("En la siguiente suma, cuanto va a arrojas la consola? \n suma= 1 + '2' ")
-                respuesta4=respuesta4.toLocaleUpperCase()
-                    if(respuesta4 == "12"){
-                        totalRestpuestas +=1
-                        alert("very good sumas 1 punto. Vas: " + totalRestpuestas)
-                    }
-                    else{
-                        totalRestpuestas -=1
-                        alert(" Mu mal \n La respuesta correcta era 12 \n Restas 1 punto Vas:" + totalRestpuestas)
-                        
-                    }
-                break;
-            default:
-                 alert("Su numero seleccionado no es una pregunta")
-                 alert("Su total de puntos final fue de:"+ totalRestpuestas)
-                 empiezaEljuego= confirm("Quieres seguir jugando?")
-                break;
-            }
-        }
-        if(empiezaEljuego == false){
-            alert("No quiere jugar un juego :'(")
-        }
-
-        
-    }
-    else{
-        alert("DATO ERRONEO. AGUANTE JAVASCRIPT")
-    }
-*/
-const muebles[
-    {id=1, nombre= "ARMARIO" ,precio=300000};
-    {id=2, nombre="COCINA", precio=250000};
-    {id=3, nombre="VESTIDOR", precio=350000};
-    {id=4, nombre="BANITORI", precio=150000}
+ const muebles =[
+    {id:1 , nombre:"ARMARIO" , precio:300000},
+    {id:2 , nombre:"COCINA", precio:250000},
+    {id:3 , nombre:"VESTIDOR", precio:350000},
+    {id:4 , nombre:"BANITORI", precio:150000},
+    {id:0 , nombre:"OTRO" , precio:0}
+]
+const extras =[
+    {id:1, nombre:"BORDE DE PVC" , precio:50000},
+    {id:2 ,nombre: "BISAGRA CON CIERRE SUAVE" , precio:60000},
+    {id:3 ,nombre:"CORREDERA TELESCOPICA REFORZADA" , precio:45000},
+    {id:4 ,nombre:"LATERALES METALICOS" , precio:30000},
+    {id:5 ,nombre:"PATAS PVC" , precio:30000},
+    {id:6 ,nombre:"KIT PLACARD" , precio:75000},
 ]
 
-let tipoMueble = prompt("Que tipo de mueble estas buscando? ")
-tipoMueble=tipoMueble.toLowerCase
-let descrip = false
-switch(tipoMueble){
-    case armario:
-        console.log(muebles.precio[0]);
+function listaTipoDeMueble(){
+    let listadoTipoDeMuebles = " ";
 
-    break;
-    case cocina:
-        console.log(mueble.precio[1]);
-    break;
-    case vestidor:
-        console.log(muebles.percio[2]);
-    break
-    case banitori:
-        console.log(muebles.precio[3]);
-    break;
-    default:
-        descrip=true
-    break;
+    muebles.forEach(typ => {
+        listadoTipoDeMuebles += typ.id+" - "+ typ.nombre+ " - $"+typ.precio + "\n";
+    })
+    return listadoTipoDeMuebles;
+}
+function listaExtras(){
+    let listadoDeExtras =" ";
+
+    extras.forEach(extr =>{
+        listadoDeExtras +=  extr.id+" - "+ extr.nombre+ " - $"+extr.precio + "\n";
+    })
+    return listadoDeExtras;
 }
 
-if (descrip==true){
+let descrp = false;
+let totalPrecios=0;
+let manoDeObra=0;
+
+class Voleta {
+    constructor (){
+        this.muebles = [];
+        this.extras =[];
+        this.iva=1.21;
+    }
+
+    elegirMueble(id) {
+        let elegido = muebles.find(item => item.id === id);
+
+        if(elegido){
+            this.muebles.push(elegido);
+            console.log("Eligio el tipo de mueble: "+ elegido.nombre);
+            totalPrecios = elegido.precio;
+        }else{
+            descrp= true
+        }   
+        
+    }
+    agregarExtra (id) {
+    let extraElegido = extras.find(extr => extr.id === id);
+
+    if(extraElegido){
+        this.muebles.push(extraElegido);
+        console.log("Sumo el extra "+ extraElegido.nombre + " a su pack");
+        totalPrecios +=extraElegido.precio
+    }else{
+       descrp=true
+    }
+   }
+
+   mostrarVoleta() {
+    this.muebles.forEach(tipo =>{
+        console.log(" ~ "+tipo.nombre + " - $"+ tipo.precio);
+    })
+   }
+   
+   totalPrecioMueble(){
+    let total=0;
+
+    this.muebles.forEach(tot =>{
+        total += tot.precio;
+    })
+
+    return total;
+   }
+
+   totalPagar(){
+    let totalFinal =0;
+    totalFinal=Math.round(((this.totalPrecioMueble() *2) * this.iva));
+    return totalFinal;
+   }
+
 }
+/*
+const vole1 = new Voleta();
+console.log("Primer tipo de voleta")
+vole1.elegirMueble(1);
+vole1.agregarExtra(6);
+vole1.agregarExtra(5);
+console.log("Pack completo elegido")
+vole1.mostrarVoleta();
+let precioDelPack = vole1.totalPrecioMueble();
+let totalfinal = vole1.totalPagar();
+console.log("El valor final del mueble seria de $"+ precioDelPack);
+console.log("El total a pagar junto con la mano de Obra y el IVA es $"+ totalfinal);*/
+
+
+const vole2 = new Voleta();
+let tipoDeMueble= " ";
+let extraporagregar= " ";
+do {
+    tipoDeMueble= parseInt(prompt("Seleccione el numero de mueble que desea \n" + listaTipoDeMueble()));
+} while (tipoDeMueble != 0){
+    vole2.elegirMueble(tipoDeMueble);
+
+};
+    
