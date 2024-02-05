@@ -3,7 +3,7 @@
     {id:2 , nombre:"COCINA", precio:250000},
     {id:3 , nombre:"VESTIDOR", precio:350000},
     {id:4 , nombre:"BANITORI", precio:150000},
-    {id:0 , nombre:"OTRO" , precio:0} //Posible opcion para en un futuro poner un apartado de texto para que se describa el mueble querido
+    // 0 Posible opcion para en un futuro poner un apartado de texto para que se describa el mueble querido
 ]
 const extras =[ //Posibles opciones para agregar al mueble para mejorar su calidad
     {id:1, nombre:"BORDE DE PVC" , precio:50000},
@@ -45,19 +45,13 @@ class Voleta {
         if(elegido){
             this.muebles.push(elegido);
             console.log("Eligio el tipo de mueble: "+ elegido.nombre);
-            totalPrecios = elegido.precio;
-        }else{
-            descrp= true
-        }      
+        }   
     }
     agregarExtra (id) {
     let extraElegido = extras.find(extr => extr.id === id);
     if(extraElegido){
         this.muebles.push(extraElegido);
         console.log("Sumo el extra "+ extraElegido.nombre + " a su pack");
-        totalPrecios +=extraElegido.precio
-    }else{
-       descrp=true
     }
    }
    mostrarVoleta(){
@@ -87,9 +81,9 @@ const vole = new Voleta();
 let tipoDeMueble= 0;
 let extraporagregar=10;
 
-tipoDeMueble= parseInt(prompt("Seleccione el numero de mueble que desea \n" + listaTipoDeMueble()));
+tipoDeMueble= parseInt(prompt("Seleccione el numero de mueble que desea\n" + listaTipoDeMueble() +"0 - OTROS "));
 if(tipoDeMueble == 0){
-    decrip=true; 
+    descrp=true; 
     prompt("Comentenos que tipo de mueble desea y proximamente se lo presupuestaremos")
 }else{
     vole.elegirMueble(tipoDeMueble);}
@@ -101,8 +95,11 @@ while(extraporagregar != 0 ){
         break;
     }
 }
-let pack = "Detalle de la compra\n\n"+ vole.mostrarVoleta();
+if(descrp == false){
+let packCompleto = "Detalle de la compra\n\n"+ vole.mostrarVoleta();
 let precioDelPack = "El valor subtotal del mueble seria de $"+ vole.totalPrecioMueble();
 let totalfinal ="El total a pagar junto con la mano de Obra y el IVA es: $" + vole.totalPagar();
-alert(pack + "\n" + precioDelPack+ "\n" + totalfinal);
-    
+alert(packCompleto + "\n" + precioDelPack+ "\n" + totalfinal);
+}else{
+    alert("Nos contactaremos con usted una vez presupuestado para coordinar")
+}
