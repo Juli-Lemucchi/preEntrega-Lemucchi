@@ -14,6 +14,7 @@ const extras =[ //Posibles opciones para agregar al mueble para mejorar su calid
     {id:6 ,nombre:"KIT PLACARD" , precio:75000},
 ]
 
+/*
 function listaTipoDeMueble(){
     let listadoTipoDeMuebles = "";
 
@@ -29,10 +30,11 @@ function listaExtras(){
         listadoDeExtras +=  extr.id+" - "+ extr.nombre+ " - $"+extr.precio + "\n";
     })
     return listadoDeExtras;
-}
+} */
 
 let descrp = false; // variable para la futura posible descripcion de un mueble
 
+/*
 class Voleta { 
     constructor (){
         this.muebles = [];
@@ -73,33 +75,55 @@ class Voleta {
     totalFinal=Math.round(((this.totalPrecioMueble() *2) * this.iva));
     return totalFinal;
    }
+}*/
 
+
+let elegTipoMueble = document.getElementById("elegidotipoMueble");
+let opcionesTipos = document.getElementById("opcionesTipos");
+for (const prod of muebles) {
+    let tipodemueble = document.createElement("div");
+    tipodemueble.innerHTML =
+    `<div id=produc class="card border-0">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="false" id="elegidotipoMueble">
+            <label class="form-check-label" for="flexCheckIndeterminate">${prod.nombre}</label>
+            <p class="card-text"><b>$${prod.precio}</b></p>
+        </div>
+    </div>`;
+    opcionesTipos.appendChild(tipodemueble); 
+    
 }
 
-//Interaccion con el usuario
-const vole = new Voleta();
-let tipoDeMueble= 0;
-let extraporagregar=10;
-
-tipoDeMueble= parseInt(prompt("Seleccione el numero de mueble que desea\n" + listaTipoDeMueble() +"0 - OTROS "));
-if(tipoDeMueble == 0){
-    descrp=true; 
-    prompt("Comentenos que tipo de mueble desea y proximamente se lo presupuestaremos")
-}else{
-    vole.elegirMueble(tipoDeMueble);}
-
-while(extraporagregar != 0 ){
-    extraporagregar = parseInt(prompt("Desea agregarle a su mueble alguno de nuestros productos premium? \n\n (Si no quiere agregar mas elementos ponga 0) \n\n"+ listaExtras()));
-    vole.agregarExtra(extraporagregar);
-    if(extraporagregar==0){
-        break;
-    }
+let opcionesExtras = document.getElementById("opcionesExtras");
+for (const extr of extras) {
+    let opExtra = document.createElement("div");
+    opExtra.innerHTML =
+    `<div id=produc class="card border-0">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="false" id="elegidoextra">
+            <label class="form-check-label" for="flexCheckIndeterminate">${extr.nombre}</label>
+            <p class="card-text"><b>$${extr.precio}</b></p>
+        </div>
+    </div>`;
+    opcionesExtras.appendChild(opExtra); 
+    
 }
-if(descrp == false){
-let packCompleto = "Detalle de la compra\n\n"+ vole.mostrarVoleta();
-let precioDelPack = "El valor subtotal del mueble seria de $"+ vole.totalPrecioMueble();
-let totalfinal ="El total a pagar junto con la mano de Obra y el IVA es: $" + vole.totalPagar();
-alert(packCompleto + "\n" + precioDelPack+ "\n" + totalfinal);
-}else{
-    alert("Nos contactaremos con usted una vez presupuestado para coordinar")
+
+class Producto {
+    constructor(nombre, email) {
+        this.nombre = nombre;
+        this.email = email;
+    }}
+
+function guardarDatos() {
+    let valorNombre = document.getElementById("nombre").value;
+    let valoremail = document.getElementById("email").value;
+
+    let nuevoProducto = new Producto(valorNombre, valoremail);
+
+    localStorage.setItem("usuario",(nuevoProducto));
+
 }
+document.getElementById("guardarDatos").addEventListener("click", guardarDatos);
+
+
