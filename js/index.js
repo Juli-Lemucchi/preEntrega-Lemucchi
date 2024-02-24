@@ -1,5 +1,5 @@
 function mostrarTipoDeMuebles() {
-    const muebles = obtenerDatosTiposMueblesLS();
+    const muebles = obtenerDatosTipoMuebleLS();
     let contenido = "";
 
     for (const mueble of muebles) {

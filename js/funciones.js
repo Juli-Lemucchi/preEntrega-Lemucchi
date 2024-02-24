@@ -14,10 +14,10 @@ const extras =[ //Opciones para agregar al mueble para mejorar su calidad
 ]
 
 //Datos tipo de mueble
-const guardarTiposMueblesLS = (muebles) => {
+const guardarTipoMuebleLS = (muebles) => {
     localStorage.setItem("muebles", JSON.stringify(muebles));
 }
-const obtenerDatosTiposMueblesLS = () => {
+const obtenerDatosTipoMuebleLS = () => {
     return JSON.parse(localStorage.getItem("muebles")) || [];
 }
 //Guardar id del mueble elegido
@@ -30,81 +30,112 @@ const verTipoDeMuebleElegido = (id) => {
 }
 //Guardo el dato completo de que tipo se eligio 
 const obtenerTipoMuebleLS = () => {
-    const muebles = obtenerDatosTiposMueblesLS();
+    const muebles = obtenerDatosTipoMuebleLS();
     const id = idMuebleLS();
     const mueble = muebles.find(item => item.id === id);
     return mueble;
 }
-guardarTiposMueblesLS(muebles);
-//-------------------------------------------------------------------------------------------------------------------------------
+guardarTipoMuebleLS(muebles);
+//-----------------------------------------------------------------------------------------
 //Datos extras 
-const guardarExtrasLS = (extras) => {
+const guardarExtrassLS = (extras) => {
     localStorage.setItem("extras", JSON.stringify(extras));
 }
 const obtenerDatosExtrasLS = () => {
     return JSON.parse(localStorage.getItem("extras")) || [];
 }
-//Datos del carrito 
-const guardarCarritoLS = (extras) => {
-    localStorage.setItem("carrito", JSON.stringify(extras));
-}
-const obtenerCarritoLS = () => {
-    return JSON.parse(localStorage.getItem("carrito")) || [];
-}
-//Guardo id del extra
-const idExtrasLS = () => {
+//Guardar id del Extra elegido
+const idExtraLS = () => {
     return JSON.parse(localStorage.getItem("extra")) || 0;
 }
-//Cantidad de extras agregados
-const cantTotaldeExtrasAgregados = () => {
-    const carrito = obtenerCarritoLS();
-    return carrito.length;
-} 
-//Suma de precios
-const sumaTotalProductos = () => {
-    const carrito = obtenerCarritoLS();
-    return carrito.reduce((acumulador, item) => acumulador += item.precio, 0);
-}
-//Eliminar extras del carrito
-const eliminarCarrito = () => {
-    localStorage.removeItem("carrito");
-    renderCarrito();
-    mostrarTotalBTNCarrito();
-    notificacion("Carrito Eliminado!");
-}
-//Lo veo por id
+//Ver por id el Extra elegido
 const verExtraElegido = (id) => {
     localStorage.setItem("extra", JSON.stringify(id));
 }
-
-const buscarExtra = () => {
+//Guardo el dato completo de que extra se eligio 
+const obtenerExtraElegidoLS = () => {
     const extras = obtenerDatosExtrasLS();
-    const id = idExtrasLS();
+    const id = idExtraLS();
     const extra = extras.find(item => item.id === id);
-
     return extra;
 }
-//Agregar productos a la compra
-const agregarTipoYExtrasCarrito = () => {
+guardarExtrassLS(extras);
+//-------------------------------------------------------------------------------------
+//Datos carrito
+const guardarCarritoTipoDeMueble = (mueble) => {
+    localStorage.setItem("carritoM", JSON.stringify(mueble));
+}
+const obtenerCarritoTipoDeMueble = () => {
+    return JSON.parse(localStorage.getItem("carritoM")) || [];
+}
+//__________Interaccion con el carrito____________
+//Agregar tipo de mueble
+const agregarTipoCarrito = () => {
     const mueble = obtenerTipoMuebleLS();
-    const producto = buscarExtra();
-    const carrito = obtenerCarritoLS();
+    const carrito = obtenerCarritoTipoDeMueble();
     carrito.push(mueble);
-    carrito.push(producto);
-    guardarCarritoLS(carrito);
+    guardarCarritoTipoDeMueble(carrito);
     mostrarTotalBTNCarrito();
     notificacion("Producto Agregado!");
 }
-//Eliminar productos de la compra
-const eliminarTipoYExtrasoCarrito = (id) => {
-    const carrito = obtenerCarritoLS();
+//Eliminar tipo de muebles
+const eliminarTipoCarrito = (id) => {
+    const carrito = obtenerCarritoTipoDeMueble();
     const carritoActualizado = carrito.filter(item => item.id != id);
-    guardarCarritoLS(carritoActualizado);
+    guardarCarritoTipoDeMueble(carritoActualizado);
     renderCarrito();
     mostrarTotalBTNCarrito();
     notificacion("Producto Eliminado!");
 }
+
+//--------------------------Carrito extras------------------------------------------
+//Datos de carrito
+const guardarCarritoExtras = (extras) => {
+    localStorage.setItem("carritoE", JSON.stringify(extras));
+}
+const obtenerCarritoExtras = () => {
+    return JSON.parse(localStorage.getItem("carritoE")) || [];
+}
+//__________Interaccion con el carrito____________
+//Agregar extras
+const agregarExtrasCarrito = () => {
+    const extra = obtenerExtraElegidoLS();
+    const carrito = obtenerCarritoExtras();
+    carrito.push(extra);
+    guardarCarritoExtras(carrito);
+    mostrarTotalBTNCarrito();
+    notificacion("Producto Agregado!"); 
+}
+//Eliminar extras
+const eliminarExtrasCarrito = (id) => {
+    const carrito = obtenerCarritoExtras();
+    const carritoActualizado = carrito.filter(item => item.id != id);
+    guardarCarritoExtras(carritoActualizado);
+    renderCarrito();
+    mostrarTotalBTNCarrito();
+}
+
+//_____________________________________________________________________________________________
+//Cantidad de extras agregados
+const cantTotalAgregados = () => {
+    const carrito = obtenerCarritoTipoDeMueble().concat(obtenerCarritoExtras());
+    return carrito.length;
+} 
+//Suma de precios
+const sumaTotalProductos = () => {
+    const carrito = obtenerCarritoTipoDeMueble().concat(obtenerCarritoExtras());
+    return carrito.reduce((acumulador, item) => acumulador += item.precio, 0);
+}
+//Eliminar carrito
+const eliminarCarrito = () => {
+    localStorage.removeItem("carritoM");
+    localStorage.removeItem("carritoE");
+    renderCarrito();
+    mostrarTotalBTNCarrito();
+}
 //Mostrar en el boton la cantidad de productos
 const mostrarTotalBTNCarrito = () => {
-    document.getElementById("totalCarrito").innerHTML = cantTotaldeExtrasAgregados();
+    document.getElementById("totalCarrito").innerHTML = cantTotalAgregados();
 }
+
+ 
