@@ -15,16 +15,17 @@ mostrarMuebleElegido();
 function mostrarExtras() {
     const extras = obtenerDatosExtrasLS();
     let contenido = "";
+    
     for (const extra of extras) {
         contenido += `<div class="col-md-4 text-center">
         <div class="text-center">
+        <a href="extra.html" onclick="verExtraElegido(${extra.id});" class="text-decoration-none">
         <img src="${extra.imagen}" alt="${extra.nombre}" height="200" />
         </div>
         <div class="text-center">
         <h3>${extra.nombre}</h3>
         <p>$${extra.precio}</p> 
-        <p><button class="btn colorbtn" onclick="agregarExtrasCarrito()">(+) Agregar</button></p>
-        </div> </div>
+        </a></div></div>
         `;}
     document.getElementById("extras").innerHTML = contenido;
 }

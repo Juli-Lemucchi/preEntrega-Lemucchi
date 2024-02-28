@@ -26,7 +26,12 @@ function renderCarrito() {
             <td><button class="btn colorbtn btn-sm" onclick="eliminarExtrasCarrito()" title="Eliminar Producto"><img src="./img/trash.svg" alt="Eliminar"></button></td>
           </tr>`;
         }
-        contenido +=`</tbody>
+        contenido +=`
+        <tr>
+        <td class="text-center" colspan='2'>Total a Pagar</td>
+        <td class="text-end"><button class="btn colorbtn btn-sm" onclick="finalizarCompra()" title="Finalizar Compra"><b>Finalizar Compra</b></button></td>
+        </tr>
+        </tbody>
         </table>`;
           
     } else {
