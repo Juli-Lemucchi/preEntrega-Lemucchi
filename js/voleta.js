@@ -1,6 +1,6 @@
 function renderCarrito() {
-    const mueble = obtenerTipoMuebleLS();
-    const extras = obtenerDatosExtrasLS();
+    const mueble = obtenerCarritoTipoDeMueble();
+    const extras = obtenerCarritoExtras();
     let contenido = "";
 
     if (cantTotalAgregados() > 0) {
@@ -14,8 +14,8 @@ function renderCarrito() {
           <tr>
             <td class="text-start"><img src="${mueble.imagen}" alt="${mueble.nombre}" width="64" /></td>
             <td>${mueble.nombre}</td>
-            <td><b>$${mueble.precio}</b></td>
-            <td><button class="btn colorbtn btn-sm" onclick="eliminarTipoCarrito(${mueble.id})" title="Eliminar Producto"><img src="./img/trash.svg" alt="Eliminar"></button></td>
+            <td><b>${mueble}</b></td>
+            <td><button class="btn colorbtn btn-sm" onclick="eliminarTipoCarrito(${mueble.id})"><img src="./img/trash.svg" alt="Eliminar"></button></td>
           </tr>`;
           for (const extra of extras) {
             contenido += `
@@ -23,7 +23,7 @@ function renderCarrito() {
             <td><img src="${extra.imagen}" alt="${extra.nombre}" width="64" /></td>
             <td>${extra.nombre}</td>
             <td><b>$${extra.precio}</b></td>
-            <td><button class="btn colorbtn btn-sm" onclick="eliminarExtrasCarrito()" title="Eliminar Producto"><img src="./img/trash.svg" alt="Eliminar"></button></td>
+            <td><button class="btn colorbtn btn-sm" onclick="eliminarExtrasCarrito(${extra.id})"><img src="./img/trash.svg" alt="Eliminar"></button></td>
           </tr>`;
         }
         contenido +=`

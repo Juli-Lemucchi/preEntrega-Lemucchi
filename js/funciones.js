@@ -103,7 +103,7 @@ const agregarExtrasCarrito = () => {
     carrito.push(extra);
     guardarCarritoExtras(carrito);
     mostrarTotalBTNCarrito();
-    notificacion("Producto Agregado!"); 
+    notificacion("Extra Agregado!"); 
 }
 //Eliminar extras
 const eliminarExtrasCarrito = (id) => {
@@ -112,6 +112,7 @@ const eliminarExtrasCarrito = (id) => {
     guardarCarritoExtras(carritoActualizado);
     renderCarrito();
     mostrarTotalBTNCarrito();
+    notificacion("Extra eliminado!")
 }
 
 //_____________________________________________________________________________________________
@@ -143,14 +144,13 @@ const mostrarTotalBTNCarrito = () => {
 
 
 const notificacion = (texto) => {
-    Swal.fire({
-        position: "top-end",
-        title: texto,
-        showConfirmButton: false,
-        timer: 1000
-    });
+    Toastify({
+        text: texto,
+        duration: 3000,
+        
+        }).showToast();
 }
 
- console.log(sumaTotalTipodemueble());
+ console.log(obtenerTipoMuebleLS());
  console.log(sumaTotalExtras());
  
