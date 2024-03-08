@@ -31,4 +31,4 @@ function mostrarExtras() {
 }
 mostrarExtras();
 mostrarTotalBTNCarrito();
-
+ 

@@ -28,17 +28,19 @@
           <img src="../img/dibumuebles.jpg" alt="ilustracion de muebles">
       </div>
       <div class="datUsuario">
-          <form>
-              <h3>Datos de contacto</h3>
+        <h3>Datos de contacto</h3>
+          <form id="formulario">
               <div class="mb-3">
-                  <label for="nombreApellido" class="form-label">Nombre y apellido</label>
-                  <input type="text" class="form-control" id="nombreApellido">
+                <label for="nombre" class="form-label">Nombre<label>
+                <input type="text" class="form-control" id="nombre">
               </div>
+              <div id="validacionNyA"></div>
               <div class="mb-3">
-                <label for="email" class="form-label">Mail</label>
-                <input type="email" class="form-control" id="email">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-control" id="email">
               </div>
-              <button type="button" id="guardarDatos" class="btn btn-secondary">Guardar</button>
+              <div id="validacionemail"></div>
+              <button type="submit" id="btnEnviar" class="btn colorbtn">Guardar</button>
           </form>
           </div>
           <div class="tipMueble">
