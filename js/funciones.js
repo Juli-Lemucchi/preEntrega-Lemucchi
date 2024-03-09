@@ -1,16 +1,16 @@
 const muebles =[ //Tipos de muebles que suelen hacer
-    {id:1 , nombre:"ARMARIO" , precio:300000, imagen:"./img/armario_blanco.jpg"},
-    {id:2 , nombre:"COCINA", precio:250000, imagen:"./img/cocina_blancaplus.jpg"},
-    {id:3 , nombre:"VESTIDOR", precio:350000, imagen:"./img/vestidor_beige.jpg"},
-    {id:4 , nombre:"BANITORI", precio:150000, imagen:"./img/banitori_flotante.jpg"}, 
+    {id:1 , nombre:"ARMARIO" , precio:300000, imagen:".../img/armario_blanco.jpg"},
+    {id:2 , nombre:"COCINA", precio:250000, imagen:".../img/cocina_blancaplus.jpg"},
+    {id:3 , nombre:"VESTIDOR", precio:350000, imagen:".../img/vestidor_beige.jpg"},
+    {id:4 , nombre:"BANITORI", precio:150000, imagen:".../img/banitori_flotante.jpg"}, 
 ]
 const extras =[ //Opciones para agregar al mueble para mejorar su calidad
-    {id:1, nombre:"BORDE DE PVC" , precio:50000, imagen:"./img/ej_vis_borde.jpg"},
-    {id:2 ,nombre: "BISAGRA CON CIERRE SUAVE" , precio:60000, imagen:"./img/ej_vis_bisagra.jpg"},
-    {id:3 ,nombre:"CORREDERA TELESCOPICA REFORZADA" , precio:45000, imagen:"../img/ej_vis_corredera.jpg"},
-    {id:4 ,nombre:"LATERALES METALICOS" , precio:30000, imagen:"./img/ej_vis_ladoCajones.jpg"},
-    {id:5 ,nombre:"PATAS PVC" , precio:30000, imagen:"./img/ej_vis_patapvc.jpg"},
-    {id:6 ,nombre:"KIT PLACARD" , precio:75000, imagen:"./img/ej_vis_kitArmario.jpg"},
+    {id:1, nombre:"BORDE DE PVC" , precio:50000, imagen:".../img/ej_vis_borde.jpg"},
+    {id:2 ,nombre: "BISAGRA CON CIERRE SUAVE" , precio:60000, imagen:".../img/ej_vis_bisagra.jpg"},
+    {id:3 ,nombre:"CORREDERA TELESCOPICA REFORZADA" , precio:45000, imagen:".../img/ej_vis_corredera.jpg"},
+    {id:4 ,nombre:"LATERALES METALICOS" , precio:30000, imagen:".../img/ej_vis_ladoCajones.jpg"},
+    {id:5 ,nombre:"PATAS PVC" , precio:30000, imagen:".../img/ej_vis_patapvc.jpg"},
+    {id:6 ,nombre:"KIT PLACARD" , precio:75000, imagen:".../img/ej_vis_kitArmario.jpg"},
 ]
 //Datos TipoDeMueble 
 const guardarTipoMueblesLS = (muebles) => {
