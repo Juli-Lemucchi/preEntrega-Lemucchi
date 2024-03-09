@@ -1,5 +1,6 @@
 function renderCarrito() {
   const extras = obtenerCarritoExtras();
+  const sub = sumaTotal();
   let contenido = "";
 
 
@@ -23,8 +24,10 @@ function renderCarrito() {
     }
     contenido +=`
     <tr>
-    <td class="text-center" colspan='2'>Total a Pagar</td>
-    <td class="text-end"><button class="btn colorbtn btn-sm" onclick="finalizarCompra()" title="Finalizar Compra"><b>Finalizar Compra</b></button></td>
+    <td> </td>
+    <td>Total a Pagar</td>
+    <td><b>`+sub+`<b></td>
+    <td><button class="btn colorbtn btn-sm" onclick="finalizarCompra()" title="Finalizar Compra"><b>Finalizar Compra</b></button></td>
     </tr>
     </tbody>
     </table>`;
