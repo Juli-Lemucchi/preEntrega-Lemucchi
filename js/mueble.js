@@ -4,13 +4,13 @@ function mostrarMuebleElegido() {
     <h2>${mueble.nombre}</h2>
     <img src="${mueble.imagen}" alt="${mueble.nombre}" class="imgMuebleElegido" />
     <h3>$${mueble.precio}</h3>
-    <p><button class="btn colorbtn" onclick="agregarTipoCarrito()">(+) Agregar</button></p>
+    <p><button class="btn colorbtn" onclick="agregarTipoDeMuebleCarrito(${mueble.id})">(+) Agregar</button></p>
     </div>`;
 
     document.getElementById("mueble").innerHTML = contenido;
 }
 
-mostrarMuebleElegido();
+
 
 function mostrarExtras() {
     const extras = obtenerDatosExtrasLS();
@@ -29,6 +29,7 @@ function mostrarExtras() {
         `;}
     document.getElementById("extras").innerHTML = contenido;
 }
+mostrarMuebleElegido();
 mostrarExtras();
 mostrarTotalBTNCarrito();
  

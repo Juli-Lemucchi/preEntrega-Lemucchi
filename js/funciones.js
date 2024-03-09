@@ -12,62 +12,56 @@ const extras =[ //Opciones para agregar al mueble para mejorar su calidad
     {id:5 ,nombre:"PATAS PVC" , precio:30000, imagen:"../img/ej_vis_patapvc.jpg"},
     {id:6 ,nombre:"KIT PLACARD" , precio:75000, imagen:"../img/ej_vis_kitArmario.jpg"},
 ]
-//Datos del usuario
-function validarFormulario(evento) {
-    evento.preventDefault();
-
-    let nombre = document.getElementById("nombre").value;
-    let validacionNyA = document.getElementById("validacionNyA");
-    let email = document.getElementById("email").value;
-    let validacionEmail = document.getElementById("validacionemail");
-
-    if (nombre.length >= 2) {
-        validacionNyA.innerHTML = "";
-    } else {
-        validacionNyA.innerHTML = "Ingrese su nombre y apellido";
-        validacionNyA.className = "text-danger";
-        return false;
-    }
-
-    if (email.includes("@")) {
-        validacionEmail.innerHTML = "";
-    } else {
-        validacionEmail.innerHTML = "Ingrese un Email válido!";
-        validacionEmail.className = "text-danger";
-        return false;
-    }
-
-    document.getElementById("formulario").submit();
-}
-
-document.getElementById("formulario").addEventListener("submit", validarFormulario);
-
-
-
-
-//Datos tipo de mueble
-const guardarTipoMuebleLS = (muebles) => {
+//Datos TipoDeMueble 
+const guardarTipoMueblesLS = (muebles) => {
     localStorage.setItem("muebles", JSON.stringify(muebles));
-}
+  }
 const obtenerDatosTipoMuebleLS = () => {
     return JSON.parse(localStorage.getItem("muebles")) || [];
-}
-//Guardar id del mueble elegido
+  }
+ 
+  //Guardar id del Tipo elegido
 const idMuebleLS = () => {
     return JSON.parse(localStorage.getItem("mueble")) || 0;
-}
-//Ver por id el mueble elegido
-const verTipoDeMuebleElegido = (id) => {
+  }
+const verMuebleElegido = (id) => {
     localStorage.setItem("mueble", JSON.stringify(id));
-}
-//Guardo el dato completo de que tipo se eligio 
+  }
+  //Guardo el dato completo 
 const obtenerTipoMuebleLS = () => {
     const muebles = obtenerDatosTipoMuebleLS();
     const id = idMuebleLS();
     const mueble = muebles.find(item => item.id === id);
     return mueble;
-}
-guardarTipoMuebleLS(muebles);
+  }
+  guardarTipoMueblesLS(muebles);
+ //--------------------------Carrito TipoDeMueble------------------------------------------
+  const guardarCarritoTipoDeMueble = (mueble) => {
+    localStorage.setItem("carritoM", JSON.stringify(mueble));
+  }
+  const obtenerCarritoTipoDeMueble = () => {
+    return JSON.parse(localStorage.getItem("carritoM")) || [];
+  }
+  //__________Interaccion con el carrito____________
+  //Agregar Tipo
+  const agregarTipoDeMuebleCarrito = () => {
+    const mueble = obtenerTipoMuebleLS();
+    const carrito = obtenerCarritoTipoDeMueble();
+    carrito.push(mueble);
+    guardarCarritoExtras(carrito);
+    mostrarTotalBTNCarrito();
+    notificacion("Tipo de mueble elegido!"); 
+  }
+  //Eliminar TipoDeMueble
+  const eliminarTipoDeMuebleCarrito = (id) => {
+    const carrito = obtenerCarritoTipoDeMueble();
+    const carritoActualizado = carrito.filter(item => item.id != id);
+    guardarCarritoTipoDeMueble(carritoActualizado);
+    renderCarrito();
+    mostrarTotalBTNCarrito();
+    notificacion("Tipo de mueble eliminado!")
+  }
+
 //-------------------------------------------------------------------------------------
 //Datos extras 
 const guardarExtrassLS = (extras) => {
@@ -91,41 +85,13 @@ const obtenerExtraElegidoLS = () => {
     return extra;
 }
 guardarExtrassLS(extras);
-//-------------------------------------------------------------------------------------
-//Datos carrito
-const guardarCarritoTipoDeMueble = (mueble) => {
-    localStorage.setItem("carritoM", JSON.stringify(mueble));
-}
-const obtenerCarritoTipoDeMueble = () => {
-    return JSON.parse(localStorage.getItem("carritoM")) || [{id:14,nombre:"REGISTRANDO ERRORES"}];
-}
-//__________Interaccion con el carrito____________
-//Agregar tipo de mueble
-const agregarTipoCarrito = () => {
-    const mueble = obtenerTipoMuebleLS();
-    const carrito = obtenerCarritoTipoDeMueble();
-    carrito.push(mueble);
-    guardarCarritoTipoDeMueble(carrito);
-    mostrarTotalBTNCarrito();
-    notificacion(carrito);
-}
-//Eliminar tipo de muebles
-const eliminarTipoCarrito = (id) => {
-    const carrito = obtenerCarritoTipoDeMueble();
-    const carritoActualizado = carrito.filter(item => item.id != id);
-    guardarCarritoTipoDeMueble(carritoActualizado);
-    renderCarrito();
-    mostrarTotalBTNCarrito();
-    notificacion("Producto Eliminado!");
-}
-
 //--------------------------Carrito extras------------------------------------------
 //Datos de carrito
 const guardarCarritoExtras = (extra) => {
     localStorage.setItem("carritoE", JSON.stringify(extra));
 }
 const obtenerCarritoExtras = () => {
-    return JSON.parse(localStorage.getItem("carritoE")) || [{id:15,nombre:"REGISTRANDO ERRORES"}];
+    return JSON.parse(localStorage.getItem("carritoE")) || [];
 }
 //__________Interaccion con el carrito____________
 //Agregar extras
@@ -150,21 +116,17 @@ const eliminarExtrasCarrito = (id) => {
 //_____________________________________________________________________________________________
 //Cantidad de extras agregados
 const cantTotalAgregados = () => {
-    const carrito = obtenerCarritoTipoDeMueble().concat(obtenerCarritoExtras());
+    const carrito =obtenerCarritoExtras();
     return carrito.length;
 } 
 //Suma de precios
-const sumaTotalTipodemueble = () => {
-    const carrito = obtenerCarritoTipoDeMueble();
+const sumaTotal = () => {
+    const carrito =obtenerCarritoExtras();
     return carrito.reduce((acumulador, item) => acumulador += item.precio, 0);
 }
-const sumaTotalExtras = () => {
-    const carrito = obtenerCarritoExtras();
-    return carrito.reduce((acumulador, item) => acumulador += item.precio, 0);
-}
+
 //Eliminar carrito
 const eliminarCarrito = () => {
-    localStorage.removeItem("carritoM");
     localStorage.removeItem("carritoE");
     renderCarrito();
     mostrarTotalBTNCarrito();
@@ -183,6 +145,19 @@ const notificacion = (texto) => {
         }).showToast();
 }
 
- console.log(obtenerTipoMuebleLS());
- console.log(sumaTotalExtras());
- 
+const finalizarCompra = () => {
+    Swal.fire({
+        title: "Gracias por su compra!",
+        text:"El total de su compra es $"+sumaTotal(),
+        width: 900,
+        padding: "3em",
+        color: "#000000",
+        background: "url(./img/fondoEncabPie.jpeg)",
+      }).then((result) => {
+        if (result.isConfirmed) {
+            eliminarCarrito();
+        }
+    });
+}
+
+
